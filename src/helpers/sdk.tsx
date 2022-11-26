@@ -1,5 +1,5 @@
 import {Configuration, V0alpha2Api} from '@ory/kratos-client';
-import Constants from 'expo-constants';
+import Config from 'react-native-config';
 import axiosFactory from 'axios';
 import {resilience} from './axios';
 
@@ -11,7 +11,7 @@ const canonicalize = (url: string = '') => url.replace(/\/+$/, '');
 
 // This value comes from ../../app.config.js
 export const kratosUrl = (project: string = 'playground') => {
-  const url = canonicalize(Constants.manifest?.extra?.kratosUrl) || '';
+  const url = canonicalize(Config.KRATOS_URL) || '';
 
   if (url.indexOf('https://playground.projects.oryapis.com/') == -1) {
     // The URL is not from Ory, so let's just return it.

@@ -1,7 +1,7 @@
 // This file handles the authentication state.
 
 import {Session as KratosSession} from '@ory/kratos-client';
-import * as SecureStore from 'expo-secure-store';
+import SecureStore, {ACCESSIBLE} from 'rn-secure-storage';
 import AsyncStore from '@react-native-async-storage/async-storage';
 import {Platform} from 'react-native';
 
@@ -21,7 +21,6 @@ export type SessionContext = {
 // user is authenticated or null is the user is not authenticated.
 //
 // If an error (e.g. network error) occurs, the promise rejects with an error.
-// @ts-ignore
 export const getAuthenticatedSession = (): Promise<SessionContext> => {
   const parse = (sessionRaw: string | null): SessionContext => {
     if (!sessionRaw) {
@@ -32,10 +31,11 @@ export const getAuthenticatedSession = (): Promise<SessionContext> => {
     return JSON.parse(sessionRaw);
   };
 
-  let p =
-    Platform.OS === 'web'
-      ? AsyncStore.getItem(userSessionName)
-      : SecureStore.getItemAsync(userSessionName); // We can use SecureStore if not on web instead!
+  let p = AsyncStore.getItem(userSessionName);
+  if (Platform.OS !== 'web') {
+    // We can use SecureStore if not on web instead!
+    p = SecureStore.get(userSessionName);
+  }
 
   return p.then(parse);
 };
@@ -43,7 +43,7 @@ export const getAuthenticatedSession = (): Promise<SessionContext> => {
 // Sets the session.
 export const setAuthenticatedSession = (
   session: SessionContext,
-): Promise<void> => {
+): Promise<string | null> => {
   if (!session) {
     return killAuthenticatedSession();
   }
@@ -57,7 +57,9 @@ export const setAuthenticatedSession = (
   return (
     SecureStore
       // The SecureStore only supports strings so we encode the session.
-      .setItemAsync(userSessionName, JSON.stringify(session))
+      .set(userSessionName, JSON.stringify(session), {
+        accessible: ACCESSIBLE.WHEN_UNLOCKED,
+      })
   );
 };
 
@@ -69,5 +71,5 @@ export const killAuthenticatedSession = () => {
     return AsyncStore.removeItem(userSessionName);
   }
 
-  return SecureStore.deleteItemAsync(userSessionName);
+  return SecureStore.remove(userSessionName);
 };

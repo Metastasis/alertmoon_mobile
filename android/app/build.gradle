@@ -277,6 +277,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation project(':rn-secure-storage')
 }
 
 if (isNewArchitectureEnabled()) {
