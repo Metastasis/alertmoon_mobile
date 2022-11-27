@@ -15,11 +15,12 @@ interface Props {
 
 export default ({onPress, cta, description, testID}: Props) => {
   const theme = useContext(ThemeContext);
+  const stl = {textAlign: 'center'};
   return (
     <StyledCard>
       <TouchableHighlight testID={testID} onPress={onPress}>
         <View>
-          <StyledText variant="h3" style={{textAlign: 'center'}}>
+          <StyledText variant="h3" style={stl}>
             {description}{' '}
             <StyledText variant="h3" style={{color: theme.primary60}}>
               {cta}

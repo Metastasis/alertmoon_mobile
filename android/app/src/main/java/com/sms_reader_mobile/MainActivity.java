@@ -3,7 +3,6 @@ package com.sms_reader_mobile;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
-import com.taluttasgiran.rnsecurestorage.RNSecureStoragePackage;
 
 public class MainActivity extends ReactActivity {
 

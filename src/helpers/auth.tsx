@@ -1,5 +1,5 @@
 import {Session as KratosSession} from '@ory/kratos-client';
-import SecureStore, {ACCESSIBLE} from 'rn-secure-storage';
+// import SecureStore, {ACCESSIBLE} from 'rn-secure-storage';
 import AsyncStore from '@react-native-async-storage/async-storage';
 import {Platform} from 'react-native';
 
@@ -32,7 +32,7 @@ export const getAuthenticatedSession = (): Promise<SessionContext> => {
   let p = AsyncStore.getItem(userSessionName);
   if (Platform.OS !== 'web') {
     // We can use SecureStore if not on web instead!
-    p = SecureStore.get(userSessionName);
+    // p = SecureStore.get(userSessionName);
   }
 
   return p.then(parse);
@@ -46,28 +46,28 @@ export const setAuthenticatedSession = (
     return killAuthenticatedSession();
   }
 
-  if (Platform.OS === 'web') {
-    // SecureStore is not available on the web platform. We need to use AsyncStore
-    // instead.
-    return AsyncStore.setItem(userSessionName, JSON.stringify(session));
-  }
+  // if (Platform.OS === 'web') {
+  // SecureStore is not available on the web platform. We need to use AsyncStore
+  // instead.
+  return AsyncStore.setItem(userSessionName, JSON.stringify(session));
+  // }
 
-  return (
-    SecureStore
-      // The SecureStore only supports strings so we encode the session.
-      .set(userSessionName, JSON.stringify(session), {
-        accessible: ACCESSIBLE.WHEN_UNLOCKED,
-      }) as Promise<null>
-  );
+  // return (
+  //   SecureStore
+  //     The SecureStore only supports strings so we encode the session.
+  // .set(userSessionName, JSON.stringify(session), {
+  //   accessible: ACCESSIBLE.WHEN_UNLOCKED,
+  // }) as Promise<null>
+  // );
 };
 
 // Removes the session from the store.
 export const killAuthenticatedSession = () => {
-  if (Platform.OS === 'web') {
-    // SecureStore is not available on the web platform. We need to use AsyncStore
-    // instead.
-    return AsyncStore.removeItem(userSessionName);
-  }
+  // if (Platform.OS === 'web') {
+  // SecureStore is not available on the web platform. We need to use AsyncStore
+  // instead.
+  return AsyncStore.removeItem(userSessionName);
+  // }
 
-  return SecureStore.remove(userSessionName) as Promise<null>;
+  // return SecureStore.remove(userSessionName) as Promise<null>;
 };

@@ -108,7 +108,7 @@ export function handleFormSubmitError<T>(
         case 401:
           if (!logout) {
             console.error(
-              `Received unexpected 401/403 status code: `,
+              'Received unexpected 401/403 status code: ',
               err,
               err.response.data,
             );

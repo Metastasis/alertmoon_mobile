@@ -25,11 +25,11 @@ const Home = () => {
   // identity's ID
   const {name: {first = String(session.identity.id)} = {}} = session.identity
     .traits as any;
-
+  const stl = {marginBottom: 14};
   return (
     <Layout>
       <StyledCard>
-        <StyledText style={{marginBottom: 14}} variant="h1">
+        <StyledText style={stl} variant="h1">
           Welcome back, {first}!
         </StyledText>
         <StyledText variant="lead">

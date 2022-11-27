@@ -23,7 +23,7 @@ const ProjectPicker = () => {
 
   return (
     <StyledCard>
-      <View testID={`field/project`}>
+      <View testID="field/project">
         <StyledTextInput
           testID="project-selector"
           value={inner}

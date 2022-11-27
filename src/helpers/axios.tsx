@@ -11,9 +11,9 @@ export const resilience = (axios: AxiosInstance) => {
 
       if (
         error.response &&
-        (error.response.status == 400 ||
-          error.response.status == 401 ||
-          error.response.status == 403)
+        (error.response.status === 400 ||
+          error.response.status === 401 ||
+          error.response.status === 403)
       ) {
         console.debug('Network request failed but this is ok', {
           config: error.config,

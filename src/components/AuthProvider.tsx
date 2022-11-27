@@ -1,5 +1,4 @@
 // This file defines a React Context which keeps track of the authenticated session.
-
 import React, {
   createContext,
   ReactNode,

@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default ({children}: Props) => {
-  const [project, setProject] = useState('playground');
+  const [project, setProject] = useState('peaceful-johnson-6ddzaeik3v');
 
   return (
     <ProjectContext.Provider

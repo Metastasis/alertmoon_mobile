@@ -1,7 +1,6 @@
 import 'react-native-gesture-handler';
 // https://github.com/facebook/react-native/issues/23922
 import 'react-native-url-polyfill/auto';
-
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
 // @ts-ignore
@@ -37,23 +36,22 @@ export default function App() {
 
   const hydratedTheme = {
     ...theme,
-    // regularFont300: rubikLoaded ? 'Rubik_300Light' : 'Arial',
-    // regularFont400: rubikLoaded ? 'Rubik_400Regular' : 'Arial',
-    // regularFont500: rubikLoaded ? 'Rubik_500Medium' : 'Arial',
-    // codeFont400: robotoLoaded ? 'Roboto_400Regular' : 'Arial',
+    regularFont300: 'Arial',
+    regularFont400: 'Arial',
+    regularFont500: 'Arial',
+    codeFont400: 'Arial',
     platform: 'react-native',
+  };
+  const stl = {
+    flex: 1,
+    backgroundColor: theme.grey5,
   };
 
   return (
     <ThemeProvider theme={hydratedTheme}>
       <NativeThemeProvider theme={hydratedTheme}>
         <SafeAreaProvider>
-          <SafeAreaView
-            edges={['top', 'left', 'right']}
-            style={{
-              flex: 1,
-              backgroundColor: theme.grey5,
-            }}>
+          <SafeAreaView edges={['top', 'left', 'right']} style={stl}>
             <ProjectProvider>
               <AuthProvider>
                 <ErrorBoundary>

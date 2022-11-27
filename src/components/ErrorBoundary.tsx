@@ -1,4 +1,5 @@
 import React, {Component, ErrorInfo, ReactNode} from 'react';
+import StyledText from './Styled/StyledText';
 
 interface Props {
   children: ReactNode;
@@ -20,13 +21,13 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.error(error, errorInfo);
+    console.error(11111, error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return <StyledText variant="h1">Something went wrong.</StyledText>;
     }
 
     return this.props.children;

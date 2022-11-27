@@ -14,6 +14,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   View,
+  // Text,
 } from 'react-native';
 import Header from './Layout/Header';
 
@@ -38,13 +39,21 @@ const linking = {
   prefixes: ['http://127.0.0.1:4457/'],
 };
 
+// function Dummy() {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>Dummy</Text>
+//     </View>
+//   );
+// }
+
 export default () => {
-  // import { AuthContext } from './AuthProvider'
   const {isAuthenticated} = useContext(AuthContext);
+  const stl = {flex: 1};
   return (
     <KeyboardAvoidingView
-      style={{flex: 1}}
-      behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
+      style={stl}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <NavigationContainer linking={linking}>
           <Stack.Navigator
