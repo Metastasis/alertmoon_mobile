@@ -12,8 +12,6 @@ import {RootStackParamList} from '../Navigation';
 import {AuthContext} from '../AuthProvider';
 import {getNodeId, handleFormSubmitError} from '../../helpers/form';
 import {Platform} from 'react-native';
-import ProjectPicker from '../Layout/ProjectPicker';
-import {ProjectContext} from '../ProjectProvider';
 import {
   SelfServiceRegistrationFlow,
   SubmitSelfServiceRegistrationFlowBody,
@@ -25,11 +23,10 @@ const Registration = ({navigation}: Props) => {
   const [flow, setConfig] = useState<SelfServiceRegistrationFlow | undefined>(
     undefined,
   );
-  const {project} = useContext(ProjectContext);
   const {setSession, isAuthenticated} = useContext(AuthContext);
 
   const initializeFlow = () =>
-    newKratosSdk(project)
+    newKratosSdk()
       .initializeSelfServiceRegistrationFlowWithoutBrowser()
       // The flow was initialized successfully, let's set the form data:
       .then(({data: newFlow}) => {
@@ -46,7 +43,7 @@ const Registration = ({navigation}: Props) => {
         setConfig(undefined);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [project]),
+    }, []),
   );
 
   useEffect(() => {
@@ -65,7 +62,7 @@ const Registration = ({navigation}: Props) => {
     payload: SubmitSelfServiceRegistrationFlowBody,
   ): Promise<void> =>
     flow
-      ? newKratosSdk(project)
+      ? newKratosSdk()
           .submitSelfServiceRegistrationFlow(flow.id, payload)
           .then(({data}) => {
             // ORY Kratos can be configured in such a way that it requires a login after
@@ -129,8 +126,6 @@ const Registration = ({navigation}: Props) => {
         cta="Sign in!"
         onPress={() => navigation.navigate({key: 'Login'})}
       />
-
-      <ProjectPicker />
     </AuthLayout>
   );
 };

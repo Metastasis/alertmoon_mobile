@@ -10,7 +10,6 @@ import {AuthContext} from '../AuthProvider';
 import Layout from '../Layout/Layout';
 import StyledText from '../Styled/StyledText';
 import {handleFormSubmitError} from '../../helpers/form';
-import {ProjectContext} from '../ProjectProvider';
 import {
   SelfServiceSettingsFlow,
   SelfServiceSettingsFlowState,
@@ -24,7 +23,6 @@ const CardTitle = styled.View`
 
 const Settings = () => {
   const navigation = useNavigation();
-  const {project} = useContext(ProjectContext);
   const {isAuthenticated, sessionToken, setSession, syncSession} =
     useContext(AuthContext);
   const [flow, setFlow] = useState<SelfServiceSettingsFlow | undefined>(
@@ -32,7 +30,7 @@ const Settings = () => {
   );
 
   const initializeFlow = (token: string) =>
-    newKratosSdk(project)
+    newKratosSdk()
       .initializeSelfServiceSettingsFlowWithoutBrowser(token)
       .then(({data: newFlow}) => {
         setFlow(newFlow);
@@ -44,10 +42,11 @@ const Settings = () => {
       initializeFlow(sessionToken);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project, sessionToken]);
+  }, [sessionToken]);
 
   useEffect(() => {
     if (!isAuthenticated) {
+      // @ts-ignore
       navigation.navigate('Login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +69,7 @@ const Settings = () => {
   };
 
   const onSubmit = (payload: SubmitSelfServiceSettingsFlowBody) =>
-    newKratosSdk(project)
+    newKratosSdk()
       .submitSelfServiceSettingsFlow(flow.id, sessionToken, payload)
       .then(({data}: any) => {
         onSuccess(data);

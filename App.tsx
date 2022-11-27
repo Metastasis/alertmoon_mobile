@@ -13,7 +13,6 @@ import Navigation from './src/components/Navigation';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import AuthProvider from './src/components/AuthProvider';
 import ForkMe from './src/components/Styled/ForkMe';
-import ProjectProvider from './src/components/ProjectProvider';
 
 // Sentry.init({
 //   dsn: 'https://8be94c41dbe34ce1b244935c68165eab@o481709.ingest.sentry.io/5530799',
@@ -52,14 +51,12 @@ export default function App() {
       <NativeThemeProvider theme={hydratedTheme}>
         <SafeAreaProvider>
           <SafeAreaView edges={['top', 'left', 'right']} style={stl}>
-            <ProjectProvider>
-              <AuthProvider>
-                <ErrorBoundary>
-                  <Navigation />
-                  <ForkMe />
-                </ErrorBoundary>
-              </AuthProvider>
-            </ProjectProvider>
+            <AuthProvider>
+              <ErrorBoundary>
+                <Navigation />
+                <ForkMe />
+              </ErrorBoundary>
+            </AuthProvider>
           </SafeAreaView>
         </SafeAreaProvider>
       </NativeThemeProvider>

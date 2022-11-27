@@ -1,11 +1,5 @@
 // This file defines a React Context which keeps track of the authenticated session.
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
+import React, {createContext, ReactNode, useEffect, useState} from 'react';
 import {
   getAuthenticatedSession,
   killAuthenticatedSession,
@@ -15,7 +9,6 @@ import {
 import {AxiosError} from 'axios';
 import {newKratosSdk} from '../helpers/sdk';
 import {Session} from '@ory/kratos-client';
-import {ProjectContext} from './ProjectProvider';
 
 interface Context {
   session?: Session;
@@ -38,7 +31,6 @@ interface AuthContextProps {
 }
 
 export default ({children}: AuthContextProps) => {
-  const {project} = useContext(ProjectContext);
   const [sessionContext, setSessionContext] = useState<
     SessionContext | undefined
   >(undefined);
@@ -56,7 +48,7 @@ export default ({children}: AuthContextProps) => {
 
     // Use the session token from the auth session:
     return (
-      newKratosSdk(project)
+      newKratosSdk()
         // whoami() returns the session belonging to the session_token:
         .toSession(auth.session_token)
         .then(({data: session}) => {

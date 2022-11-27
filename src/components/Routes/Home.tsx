@@ -12,6 +12,7 @@ const Home = () => {
 
   useEffect(() => {
     if (!isAuthenticated || !session) {
+      // @ts-ignore
       navigation.navigate('Login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -16,19 +16,16 @@ import AuthSubTitle from '../Styled/AuthSubTitle';
 import {RootStackParamList} from '../Navigation';
 import {AuthContext} from '../AuthProvider';
 import {handleFormSubmitError} from '../../helpers/form';
-import ProjectPicker from '../Layout/ProjectPicker';
-import {ProjectContext} from '../ProjectProvider';
 import {SessionContext} from '../../helpers/auth';
 
 type Props = StackScreenProps<RootStackParamList, 'Login'>;
 
 const Login = ({navigation, route}: Props) => {
-  const {project} = useContext(ProjectContext);
   const {setSession, sessionToken} = useContext(AuthContext);
   const [flow, setFlow] = useState<SelfServiceLoginFlow | undefined>(undefined);
 
   const initializeFlow = () =>
-    newKratosSdk(project)
+    newKratosSdk()
       .initializeSelfServiceLoginFlowWithoutBrowser(
         route.params.refresh,
         route.params.aal,
@@ -50,13 +47,13 @@ const Login = ({navigation, route}: Props) => {
         setFlow(undefined);
       };
       // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [project]),
+    }, []),
   );
 
   // This will update the login flow with the user provided input:
   const onSubmit = (payload: SubmitSelfServiceLoginFlowBody) =>
     flow
-      ? newKratosSdk(project)
+      ? newKratosSdk()
           .submitSelfServiceLoginFlow(flow.id, sessionToken, payload)
           .then(({data}) => Promise.resolve(data as SessionContext))
           // Looks like everything worked and we have a session!
@@ -82,8 +79,6 @@ const Login = ({navigation, route}: Props) => {
         cta="Sign up!"
         onPress={() => navigation.navigate('Registration')}
       />
-
-      <ProjectPicker />
     </AuthLayout>
   );
 };

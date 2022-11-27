@@ -1,5 +1,7 @@
 import {AxiosInstance} from 'axios';
 
+const MAX_REQUEST_RETRIES = 5;
+
 export const resilience = (axios: AxiosInstance) => {
   axios.interceptors.response.use(
     v => Promise.resolve(v),
@@ -37,9 +39,9 @@ export const resilience = (axios: AxiosInstance) => {
         count: (error?.config?.count || 0) + 1,
       };
 
-      if (config.count > 60) {
+      if (config.count > MAX_REQUEST_RETRIES) {
         const err = new Error(
-          'Unable to reach network, gave up after 60 retries. Please restart the app and try again.',
+          `Unable to reach network, gave up after ${MAX_REQUEST_RETRIES} retries. Please restart the app and try again.`,
         );
         console.error(err, {config: error.config, error});
         return Promise.reject(err);
