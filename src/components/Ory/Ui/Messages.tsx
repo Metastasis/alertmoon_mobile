@@ -1,5 +1,6 @@
 import React from 'react';
 import {messageStyles} from '@ory/themes';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {View} from 'react-native';
 import {UiText} from '@ory/kratos-client';

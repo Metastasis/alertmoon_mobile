@@ -47,6 +47,7 @@ export default ({children}: AuthContextProps) => {
   // Fetches the authentication session.
   useEffect(() => {
     getAuthenticatedSession().then(syncSession);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const syncSession = (auth: SessionContext) => {

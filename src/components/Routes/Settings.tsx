@@ -1,9 +1,8 @@
 // This file renders the settings screen.
-
 import React, {useContext, useEffect, useState} from 'react';
 import {showMessage} from 'react-native-flash-message';
+// @ts-ignore
 import styled from 'styled-components/native';
-
 import {SelfServiceFlow} from '../Ory/Ui';
 import {newKratosSdk} from '../../helpers/sdk';
 import StyledCard from '../Styled/StyledCard';
@@ -32,11 +31,11 @@ const Settings = () => {
     undefined,
   );
 
-  const initializeFlow = (sessionToken: string) =>
+  const initializeFlow = (token: string) =>
     newKratosSdk(project)
-      .initializeSelfServiceSettingsFlowWithoutBrowser(sessionToken)
-      .then(({data: flow}) => {
-        setFlow(flow);
+      .initializeSelfServiceSettingsFlowWithoutBrowser(token)
+      .then(({data: newFlow}) => {
+        setFlow(newFlow);
       })
       .catch(console.error);
 
@@ -44,12 +43,14 @@ const Settings = () => {
     if (sessionToken) {
       initializeFlow(sessionToken);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project, sessionToken]);
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigation.navigate('Login');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   if (!flow || !sessionToken) {

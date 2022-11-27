@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import React from 'react';
 import {
   GenericError,
@@ -70,7 +71,7 @@ export const getNodeTitle = ({attributes, meta}: UiNode): string => {
   return '';
 };
 
-export function handleFlowInitError(err: AxiosError) {
+export function handleFlowInitError(_err: AxiosError) {
   return;
 }
 

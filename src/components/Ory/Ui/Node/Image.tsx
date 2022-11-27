@@ -1,5 +1,6 @@
 import React from 'react';
 import {UiNode, UiNodeImageAttributes} from '@ory/kratos-client';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {getNodeId} from '../../../../helpers/form';
 import {View} from 'react-native';

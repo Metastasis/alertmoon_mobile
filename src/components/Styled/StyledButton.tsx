@@ -1,8 +1,8 @@
-import React, {useContext} from 'react';
+import React from 'react';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {NativeSyntheticEvent, NativeTouchEvent} from 'react-native';
 import {ThemeProps} from '@ory/themes';
-import {ThemeContext} from 'styled-components';
 
 const StyledText = styled.Text`
   font-family: 'Rubik_400Regular';

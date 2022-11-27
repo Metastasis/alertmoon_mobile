@@ -4,6 +4,7 @@ import 'react-native-url-polyfill/auto';
 
 import React from 'react';
 import {ThemeProvider} from 'styled-components';
+// @ts-ignore
 import {ThemeProvider as NativeThemeProvider} from 'styled-components/native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 

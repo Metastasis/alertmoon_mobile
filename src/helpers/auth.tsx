@@ -1,5 +1,3 @@
-// This file handles the authentication state.
-
 import {Session as KratosSession} from '@ory/kratos-client';
 import SecureStore, {ACCESSIBLE} from 'rn-secure-storage';
 import AsyncStore from '@react-native-async-storage/async-storage';
@@ -43,7 +41,7 @@ export const getAuthenticatedSession = (): Promise<SessionContext> => {
 // Sets the session.
 export const setAuthenticatedSession = (
   session: SessionContext,
-): Promise<string | null> => {
+): Promise<null | void> => {
   if (!session) {
     return killAuthenticatedSession();
   }
@@ -59,7 +57,7 @@ export const setAuthenticatedSession = (
       // The SecureStore only supports strings so we encode the session.
       .set(userSessionName, JSON.stringify(session), {
         accessible: ACCESSIBLE.WHEN_UNLOCKED,
-      })
+      }) as Promise<null>
   );
 };
 
@@ -71,5 +69,5 @@ export const killAuthenticatedSession = () => {
     return AsyncStore.removeItem(userSessionName);
   }
 
-  return SecureStore.remove(userSessionName);
+  return SecureStore.remove(userSessionName) as Promise<null>;
 };

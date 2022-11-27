@@ -2,6 +2,7 @@ import {UiNode, UiNodeInputAttributes} from '@ory/kratos-client';
 import React from 'react';
 import {TextInputProps, View} from 'react-native';
 import StyledTextInput from '../../../Styled/StyledTextInput';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {textInputSubtitleStyles, textInputTitleStyles} from '@ory/themes';
 import {
@@ -66,7 +67,6 @@ const Subtitle = styled.Text(textInputSubtitleStyles);
 
 export const NodeInput = ({
   node,
-  attributes,
   value,
   onChange,
   disabled,
@@ -80,6 +80,7 @@ export const NodeInput = ({
   let extraProps: TextInputProps = {};
   switch (variant) {
     case 'email':
+      // @ts-ignore
       extraProps.autoCompleteType = 'email';
       extraProps.keyboardType = 'email-address';
       extraProps.textContentType = 'emailAddress';
@@ -87,6 +88,7 @@ export const NodeInput = ({
       extraProps.autoCorrect = false;
       break;
     case 'password':
+      // @ts-ignore
       extraProps.autoCompleteType = 'password';
       extraProps.textContentType = 'password';
       extraProps.autoCapitalize = 'none';
@@ -94,6 +96,7 @@ export const NodeInput = ({
       extraProps.autoCorrect = false;
       break;
     case 'username':
+      // @ts-ignore
       extraProps.autoCompleteType = 'username';
       extraProps.textContentType = 'username';
       extraProps.autoCapitalize = 'none';

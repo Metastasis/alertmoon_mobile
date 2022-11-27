@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {ThemeProps} from '@ory/themes';
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../AuthProvider';
-import {ThemeContext} from 'styled-components';
 
 const Buttons = styled.View`
   display: flex;

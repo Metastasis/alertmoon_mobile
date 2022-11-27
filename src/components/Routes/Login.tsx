@@ -24,7 +24,7 @@ type Props = StackScreenProps<RootStackParamList, 'Login'>;
 
 const Login = ({navigation, route}: Props) => {
   const {project} = useContext(ProjectContext);
-  const {setSession, session, sessionToken} = useContext(AuthContext);
+  const {setSession, sessionToken} = useContext(AuthContext);
   const [flow, setFlow] = useState<SelfServiceLoginFlow | undefined>(undefined);
 
   const initializeFlow = () =>
@@ -35,9 +35,9 @@ const Login = ({navigation, route}: Props) => {
         sessionToken,
       )
       .then(response => {
-        const {data: flow} = response;
+        const {data: newFlow} = response;
         // The flow was initialized successfully, let's set the form data:
-        setFlow(flow);
+        setFlow(newFlow);
       })
       .catch(console.error);
 
@@ -49,6 +49,7 @@ const Login = ({navigation, route}: Props) => {
       return () => {
         setFlow(undefined);
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project]),
   );
 

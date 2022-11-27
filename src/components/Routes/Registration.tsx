@@ -1,5 +1,4 @@
 // This file renders the registration screen.
-
 import React, {useContext, useEffect, useState} from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useFocusEffect} from '@react-navigation/native';
@@ -33,8 +32,8 @@ const Registration = ({navigation}: Props) => {
     newKratosSdk(project)
       .initializeSelfServiceRegistrationFlowWithoutBrowser()
       // The flow was initialized successfully, let's set the form data:
-      .then(({data: flow}) => {
-        setConfig(flow);
+      .then(({data: newFlow}) => {
+        setConfig(newFlow);
       })
       .catch(console.error);
 
@@ -46,6 +45,7 @@ const Registration = ({navigation}: Props) => {
       return () => {
         setConfig(undefined);
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [project]),
   );
 
@@ -53,6 +53,7 @@ const Registration = ({navigation}: Props) => {
     if (isAuthenticated) {
       navigation.navigate('Home');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
   if (isAuthenticated) {

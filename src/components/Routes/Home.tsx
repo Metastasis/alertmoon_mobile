@@ -14,6 +14,7 @@ const Home = () => {
     if (!isAuthenticated || !session) {
       navigation.navigate('Login');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, sessionToken]);
 
   if (!isAuthenticated || !session) {

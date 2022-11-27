@@ -1,4 +1,5 @@
-import React, {ReactNode, useContext} from 'react';
+import React, {ReactNode} from 'react';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {
   typographyCaptionStyles,

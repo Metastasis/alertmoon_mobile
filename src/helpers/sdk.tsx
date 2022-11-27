@@ -13,7 +13,7 @@ const canonicalize = (url: string = '') => url.replace(/\/+$/, '');
 export const kratosUrl = (project: string = 'playground') => {
   const url = canonicalize(Config.KRATOS_URL) || '';
 
-  if (url.indexOf('https://playground.projects.oryapis.com/') == -1) {
+  if (url.indexOf('https://playground.projects.oryapis.com/') === -1) {
     // The URL is not from Ory, so let's just return it.
     return url;
   }

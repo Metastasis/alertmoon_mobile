@@ -20,7 +20,6 @@ export const NodeInputSubmit = ({
   attributes,
   isSubmitting,
   onSubmitPress,
-  onChange,
 }: Props) => {
   if (attributes.type !== 'submit') {
     return null;

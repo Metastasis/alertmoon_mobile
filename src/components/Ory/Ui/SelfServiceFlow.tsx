@@ -42,15 +42,15 @@ export const SelfServiceFlow = <
       return;
     }
 
-    const nodes = flow.ui.nodes.filter(({group}) => {
+    const newNodes = flow.ui.nodes.filter(({group}) => {
       if (only) {
         return group === only || group === 'default';
       }
       return true;
     });
 
-    const values: Partial<T> = {};
-    nodes.forEach((node: UiNode) => {
+    const newValues: Partial<T> = {};
+    newNodes.forEach((node: UiNode) => {
       const name = getNodeId(node);
 
       const key = name as keyof T;
@@ -64,12 +64,13 @@ export const SelfServiceFlow = <
           // if the user clicks it.
           return;
         }
-        values[key] = node.attributes.value;
+        newValues[key] = node.attributes.value;
       }
     });
 
-    setValues(values as T);
-    setNodes(nodes);
+    setValues(newValues as T);
+    setNodes(newNodes);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [flow]);
 
   if (!flow) {
@@ -77,8 +78,8 @@ export const SelfServiceFlow = <
   }
 
   const onChange = (name: string) => (value: any) => {
-    setValues(values => ({
-      ...values,
+    setValues(preValues => ({
+      ...preValues,
       [name]: value,
     }));
   };

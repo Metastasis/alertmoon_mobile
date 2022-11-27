@@ -1,6 +1,7 @@
 import {View, Linking} from 'react-native';
 import StyledTextInput from '../Styled/StyledTextInput';
 import React, {useContext, useState} from 'react';
+// @ts-ignore
 import styled from 'styled-components/native';
 import {ThemeContext} from 'styled-components';
 import {textInputSubtitleStyles} from '@ory/themes';
