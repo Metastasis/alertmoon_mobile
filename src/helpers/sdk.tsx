@@ -3,40 +3,32 @@ import Config from 'react-native-config';
 import axiosFactory from 'axios';
 import {resilience} from './axios';
 
-const axios = axiosFactory.create();
-resilience(axios); // Adds retry mechanism to axios
-
 // canonicalize removes the trailing slash from URLs.
 const canonicalize = (url: string = '') => url.replace(/\/+$/, '');
 
-// This value comes from ../../app.config.js
-export const kratosUrl = (project: string = 'playground') => {
-  const url = canonicalize(Config.KRATOS_URL) || '';
+const axios = axiosFactory.create();
+resilience(axios); // Adds retry mechanism to axios
 
-  if (url.indexOf('https://playground.projects.oryapis.com/') === -1) {
-    // The URL is not from Ory, so let's just return it.
-    return url;
-  }
+export const newKratosSdk = () => {
+  const basePath =
+    canonicalize(Config.KRATOS_URL) ||
+    // TODO: fix react-native-config
+    'https://peaceful-johnson-6ddzaeik3v.projects.oryapis.com';
+  const cfg = new Configuration({
+    basePath,
+    baseOptions: {
+      // Setting this is very important as axios will send the CSRF cookie otherwise
+      // which causes problems with ORY Kratos' security detection.
+      withCredentials: false,
 
-  // We handle a special case where we allow the project to be changed
-  // if you use an ory project.
-  return url.replace('playground.', `${project}.`);
-};
-
-export const newKratosSdk = (project: string) =>
-  new V0alpha2Api(
-    new Configuration({
-      basePath: kratosUrl(project),
-      baseOptions: {
-        // Setting this is very important as axios will send the CSRF cookie otherwise
-        // which causes problems with ORY Kratos' security detection.
-        withCredentials: false,
-
-        // Timeout after 5 seconds.
-        timeout: 10000,
-      },
-    }),
-    '',
+      // Timeout after 5 seconds.
+      timeout: 10000,
+    },
+  });
+  return new V0alpha2Api(
+    cfg,
+    basePath,
     // Ensure that we are using the axios client with retry.
     axios,
   );
+};

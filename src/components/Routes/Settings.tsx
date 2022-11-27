@@ -41,7 +41,6 @@ const Settings = () => {
     if (sessionToken) {
       initializeFlow(sessionToken);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sessionToken]);
 
   useEffect(() => {

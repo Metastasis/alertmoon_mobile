@@ -42,7 +42,6 @@ const Registration = ({navigation}: Props) => {
       return () => {
         setConfig(undefined);
       };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []),
   );
 
