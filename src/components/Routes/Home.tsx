@@ -1,9 +1,10 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import StyledText from '../Styled/StyledText';
 import CodeBox from '../Styled/CodeBox';
 import {AuthContext} from '../AuthProvider';
 import Layout from '../Layout/Layout';
 import StyledCard from '../Styled/StyledCard';
+import StyledButton from '../Styled/StyledButton';
 import {useNavigation} from '@react-navigation/native';
 
 const Home = () => {
@@ -17,6 +18,11 @@ const Home = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, sessionToken]);
+
+  const onNotificationPage = useCallback(() => {
+    // @ts-ignore
+    navigation.navigate('NotificationPattern');
+  }, [navigation]);
 
   if (!isAuthenticated || !session) {
     return null;
@@ -33,6 +39,10 @@ const Home = () => {
         <StyledText style={stl} variant="h1">
           Welcome back, {first}!
         </StyledText>
+        <StyledButton
+          onPress={onNotificationPage}
+          title="Go to notifications"
+        />
         <StyledText variant="lead">
           Hello, nice to have you! You signed up with this data:
         </StyledText>

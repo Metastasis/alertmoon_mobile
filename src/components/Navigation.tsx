@@ -7,6 +7,7 @@ import Registration from './Routes/Registration';
 import Home from './Routes/Home';
 import {AuthContext} from './AuthProvider';
 import Settings from './Routes/Settings';
+import NotificationPattern from './Routes/NotificationPattern';
 import FlashMessage from 'react-native-flash-message';
 import {
   Keyboard,
@@ -28,6 +29,7 @@ export type RootStackParamList = {
   };
   Registration: undefined;
   Settings: undefined;
+  NotificationPattern: undefined;
 };
 
 const options = {
@@ -68,6 +70,10 @@ export default () => {
             />
             <Stack.Screen name="Registration" component={Registration} />
             <Stack.Screen name="Login" component={Login} initialParams={{}} />
+            <Stack.Screen
+              name="NotificationPattern"
+              component={NotificationPattern}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </TouchableWithoutFeedback>
