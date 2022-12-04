@@ -42,7 +42,8 @@ const StyledButton = ({onPress, testID, title, big, disabled}: ButtonProps) => (
     testID={testID}
     big={big}
     disabled={disabled}
-    onPress={onPress}>
+    onPress={onPress}
+  >
     <StyledText big={big} disabled={disabled}>
       {title}
     </StyledText>

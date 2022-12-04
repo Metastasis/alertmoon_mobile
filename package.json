@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start --port 8080",
     "test": "jest",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "prettier": "prettier ./src --write"
   },
   "dependencies": {
     "@ory/client": "0.0.1-alpha.19",

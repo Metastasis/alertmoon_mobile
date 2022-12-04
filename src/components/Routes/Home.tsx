@@ -48,10 +48,7 @@ const Home = () => {
           onPress={onNotificationPage}
           title="Go to notifications"
         />
-        <StyledButton
-          onPress={onNotificationList}
-          title="Go to list"
-        />
+        <StyledButton onPress={onNotificationList} title="Go to list" />
         <StyledText variant="lead">
           Hello, nice to have you! You signed up with this data:
         </StyledText>

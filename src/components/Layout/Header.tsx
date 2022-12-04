@@ -45,6 +45,7 @@ const Header = () => {
   const {setSession} = useContext(AuthContext);
   const logout = () => setSession(null);
   const navigate = (to: 'Settings' | 'Home') => () => {
+    // @ts-ignore
     navigation.navigate(to);
   };
 

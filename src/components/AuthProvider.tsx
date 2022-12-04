@@ -105,7 +105,8 @@ export default ({children}: AuthContextProps) => {
 
         // Is true if we have fetched the session.
         didFetch: true,
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

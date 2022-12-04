@@ -29,9 +29,11 @@ const NotificationPatternList = () => {
 
   const onNotificationPage = useCallback(
     (item: NotificationPattern) => {
-    // @ts-ignore
-    navigation.navigate('NotificationPattern', item);
-  }, [navigation]);
+      // @ts-ignore
+      navigation.navigate('NotificationPattern', item);
+    },
+    [navigation],
+  );
 
   if (!isAuthenticated || !session) {
     return null;
@@ -52,9 +54,7 @@ const NotificationPatternList = () => {
         {items.map(item => (
           <Pattern key={item.id}>
             <PatternContent>
-              <StyledItemButton
-                onPress={() => onNotificationPage(item)}
-              >
+              <StyledItemButton onPress={() => onNotificationPage(item)}>
                 <StyledText style={{color: themeGlobal.grey100}}>
                   {item.sender}
                 </StyledText>
