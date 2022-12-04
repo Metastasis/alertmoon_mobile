@@ -1,4 +1,3 @@
-import {UiNode, UiNodeInputAttributes} from '@ory/kratos-client';
 import React from 'react';
 import {TextInputProps, View} from 'react-native';
 import StyledTextInput from './../Styled/StyledTextInput';
@@ -9,11 +8,10 @@ import {textInputSubtitleStyles, textInputTitleStyles} from '@ory/themes';
 type Props = InputProps;
 
 type Variant = 'text' | 'username' | 'hidden' | 'email' | 'submit' | 'password';
-type MessageType = 'error';
 type Message = {
   text: string;
   id: string;
-  type: MessageType;
+  type: string;
 };
 export interface InputProps {
   name: string;

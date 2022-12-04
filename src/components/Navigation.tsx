@@ -8,6 +8,7 @@ import Home from './Routes/Home';
 import {AuthContext} from './AuthProvider';
 import Settings from './Routes/Settings';
 import NotificationPattern from './Routes/NotificationPattern';
+import NotificationPatternList from './Routes/NotificationPatternList';
 import FlashMessage from 'react-native-flash-message';
 import {
   Keyboard,
@@ -29,7 +30,14 @@ export type RootStackParamList = {
   };
   Registration: undefined;
   Settings: undefined;
-  NotificationPattern: undefined;
+  NotificationPattern:
+    | {
+        id: string;
+        sender: string;
+        content?: string;
+      }
+    | undefined;
+  NotificationPatternList: undefined;
 };
 
 const options = {
@@ -55,13 +63,15 @@ export default () => {
   return (
     <KeyboardAvoidingView
       style={stl}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <NavigationContainer linking={linking}>
           <Stack.Navigator
             screenOptions={{
               headerShown: isAuthenticated,
-            }}>
+            }}
+          >
             <Stack.Screen name="Home" component={Home} options={options} />
             <Stack.Screen
               name="Settings"
@@ -73,6 +83,11 @@ export default () => {
             <Stack.Screen
               name="NotificationPattern"
               component={NotificationPattern}
+              initialParams={undefined}
+            />
+            <Stack.Screen
+              name="NotificationPatternList"
+              component={NotificationPatternList}
             />
           </Stack.Navigator>
         </NavigationContainer>

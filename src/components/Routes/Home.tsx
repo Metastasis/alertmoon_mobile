@@ -24,6 +24,11 @@ const Home = () => {
     navigation.navigate('NotificationPattern');
   }, [navigation]);
 
+  const onNotificationList = useCallback(() => {
+    // @ts-ignore
+    navigation.navigate('NotificationPatternList');
+  }, [navigation]);
+
   if (!isAuthenticated || !session) {
     return null;
   }
@@ -42,6 +47,10 @@ const Home = () => {
         <StyledButton
           onPress={onNotificationPage}
           title="Go to notifications"
+        />
+        <StyledButton
+          onPress={onNotificationList}
+          title="Go to list"
         />
         <StyledText variant="lead">
           Hello, nice to have you! You signed up with this data:
