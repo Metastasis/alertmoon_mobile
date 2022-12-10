@@ -19,7 +19,7 @@ export interface InputProps {
   onChange: (value: any) => void;
   value: any;
   messages?: Message[];
-  style?: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle>;
   variant?: Variant;
   disabled?: boolean;
   textInputOverride?: TextInputOverride;
