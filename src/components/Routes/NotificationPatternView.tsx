@@ -8,7 +8,7 @@ import StyledCard from '../Styled/StyledCard';
 import {Input} from '../UI';
 import {RootStackParamList} from '../Navigation';
 import {StackScreenProps} from '@react-navigation/stack';
-import {theme as themeGlobal, ThemeProps} from '@ory/themes';
+import {ThemeProps} from '@ory/themes';
 import StyledButtonIcon from '../Styled/StyledButtonIcon';
 
 type Props = StackScreenProps<RootStackParamList, 'NotificationPatternView'>;
@@ -46,6 +46,9 @@ const NotificationPatternView = ({navigation, route}: Props) => {
   const onDelete = useCallback((access: {email: string}) => {
     console.log(access);
   }, []);
+  const onEdit = useCallback(() => {
+    navigation.navigate('NotificationPatternEdit', route.params);
+  }, [navigation, route.params]);
   useEffect(() => {
     if (!isAuthenticated || !session) {
       // @ts-ignore
@@ -59,7 +62,6 @@ const NotificationPatternView = ({navigation, route}: Props) => {
   }
 
   const {sender, content} = route.params;
-  const stl = {marginBottom: 14};
   const accesses = [
     {email: 'test@gmail.com'},
     {email: 'detox@gmail.com'},
@@ -68,20 +70,25 @@ const NotificationPatternView = ({navigation, route}: Props) => {
   return (
     <Layout>
       <StyledCard>
-        <StyledText style={stl} variant="h1">
-          {sender}
-        </StyledText>
+        <Title>
+          <StyledText variant="h1">
+            {sender}
+          </StyledText>
+          <TitleEditButton
+            onPress={onEdit}
+            icon={require('../../assets/icons8-pencil-48.png')}
+          />
+        </Title>
         {content && (
           <>
             <StyledText variant="p">Контент</StyledText>
             <StyledText variant="p">{content}</StyledText>
           </>
         )}
-        <StyledText variant="h2">Добавить E-mail</StyledText>
         <InputWithButton>
           <Input
             name="email"
-            title="E-mail"
+            title="Добавить E-mail"
             onChange={setEmail}
             value={email}
             disabled={inProgress}
@@ -99,9 +106,7 @@ const NotificationPatternView = ({navigation, route}: Props) => {
         {accesses.map(access => (
           <Pattern key={access.email}>
             <PatternContent>
-              <StyledText style={{color: themeGlobal.grey100}}>
-                {access.email}
-              </StyledText>
+              <PatternTitle>{access.email}</PatternTitle>
             </PatternContent>
             <PatternAction>
               <StyledButtonIcon
@@ -118,6 +123,16 @@ const NotificationPatternView = ({navigation, route}: Props) => {
 
 export default NotificationPatternView;
 
+const Title = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 16px;
+`;
+const TitleEditButton = styled(StyledButtonIcon)`
+  margin-left: 12px;
+  margin-top: 10px;
+`;
 const Pattern = styled.View`
   margin-top: 16px;
   border-bottom-width: 1px;
@@ -126,6 +141,9 @@ const Pattern = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+const PatternTitle = styled(StyledText)`
+  color: ${({theme}: ThemeProps) => theme.grey100};
 `;
 const PatternContent = styled.View`
   flex-grow: 1;
@@ -138,13 +156,11 @@ const PatternAction = styled.View`
 const InputWithButton = styled.View`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: space-between;
-  vertical-align: middle;
-  line-height: 0;
 `;
 const CustomButton = styled(StyledButtonIcon)`
-  opacity: 0.5;
+  margin-top: 35px;
 `;
 
 function onValidateEmail(value: string) {

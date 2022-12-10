@@ -5,6 +5,7 @@ import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 import styled from 'styled-components/native';
 import StyledText from '../Styled/StyledText';
 import StyledButtonIcon from '../Styled/StyledButtonIcon';
+import StyledButton from '../Styled/StyledButton';
 import {AuthContext} from '../AuthProvider';
 import Layout from '../Layout/Layout';
 import StyledCard from '../Styled/StyledCard';
@@ -35,6 +36,11 @@ const NotificationPatternList = () => {
     [navigation],
   );
 
+  const onCreate = useCallback(() => {
+    // @ts-ignore
+    navigation.navigate('NotificationPattern');
+  }, [navigation]);
+
   if (!isAuthenticated || !session) {
     return null;
   }
@@ -44,13 +50,13 @@ const NotificationPatternList = () => {
     {id: '2', sender: 'Сбербанк', content: undefined},
     {id: '3', sender: 'Оранжевый', content: undefined},
   ];
-  const stl = {marginBottom: 14};
   return (
     <Layout>
       <StyledCard>
-        <StyledText style={stl} variant="h1">
-          Шаблоны уведомления
-        </StyledText>
+        <Title>
+          <StyledText variant="h1">Шаблоны уведомлений</StyledText>
+        </Title>
+        <StyledButton onPress={onCreate} title="Создать шаблон" />
         {items.map(item => (
           <Pattern key={item.id}>
             <PatternContent>
@@ -73,6 +79,16 @@ const NotificationPatternList = () => {
   );
 };
 
+const Title = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-bottom: 16px;
+`;
+const TitleEditButton = styled(StyledButtonIcon)`
+  margin-left: 12px;
+  margin-top: 10px;
+`;
 const Pattern = styled.View`
   margin-top: 16px;
   border-bottom-width: 1px;

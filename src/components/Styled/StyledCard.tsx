@@ -6,7 +6,7 @@ import {ViewProps} from 'react-native';
 import {ThemeProps} from '@ory/themes';
 
 const StyledCard = styled.View`
-  padding: 20px;
+  padding: 12px;
 
   background-color: ${({theme}: ThemeProps) => theme.grey0};
   border: 1px solid ${({theme}: ThemeProps) => theme.grey10};

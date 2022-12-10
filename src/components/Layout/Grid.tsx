@@ -16,6 +16,6 @@ export const GridContainer = styled.View`
 
 export const GridRow = styled.View`
   width: 100%;
-  padding: 20px;
+  padding: 12px;
   align-self: stretch;
 `;

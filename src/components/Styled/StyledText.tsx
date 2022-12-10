@@ -10,9 +10,10 @@ import {
   typographyLeadStyles,
   typographyParagraphStyles,
 } from '@ory/themes';
-import {TextProps} from 'react-native';
+import {StyleProp, TextProps, TextStyle} from 'react-native';
 
 interface StyledTextProps extends TextProps {
+  style?: StyleProp<TextStyle>;
   variant?:
     | 'p'
     | 'h1'
