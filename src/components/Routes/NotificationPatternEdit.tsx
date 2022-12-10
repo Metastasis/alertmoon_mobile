@@ -10,9 +10,9 @@ import {StackScreenProps} from '@react-navigation/stack';
 
 type Message = {text: string; id: string; type: string};
 type Validation = {sender?: Message[]; content?: Message[]};
-type Props = StackScreenProps<RootStackParamList, 'NotificationPattern'>;
+type Props = StackScreenProps<RootStackParamList, 'NotificationPatternEdit'>;
 
-const NotificationPattern = ({navigation, route}: Props) => {
+const NotificationPatternEdit = ({navigation, route}: Props) => {
   const {isAuthenticated, session, sessionToken} = useContext(AuthContext);
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const NotificationPattern = ({navigation, route}: Props) => {
     <Layout>
       <StyledCard>
         <StyledText style={stl} variant="h1">
-          Новый шаблон
+          Изменение шаблона
         </StyledText>
         <Input
           name="sender"
@@ -86,7 +86,7 @@ const NotificationPattern = ({navigation, route}: Props) => {
         <Button
           testID="submit-form"
           disabled={inProgress}
-          title="Создать"
+          title="Изменить"
           onPress={onPress}
         />
       </StyledCard>
@@ -94,7 +94,7 @@ const NotificationPattern = ({navigation, route}: Props) => {
   );
 };
 
-export default NotificationPattern;
+export default NotificationPatternEdit;
 
 function onValidateSender(value: string) {
   if (!value || !value.trim()) return 'Поле обязательно';

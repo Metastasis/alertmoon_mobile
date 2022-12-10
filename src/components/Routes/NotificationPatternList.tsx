@@ -30,7 +30,7 @@ const NotificationPatternList = () => {
   const onNotificationPage = useCallback(
     (item: NotificationPattern) => {
       // @ts-ignore
-      navigation.navigate('NotificationPattern', item);
+      navigation.navigate('NotificationPatternView', item);
     },
     [navigation],
   );

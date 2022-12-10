@@ -1,5 +1,5 @@
 import React from 'react';
-import {TextInputProps, View} from 'react-native';
+import {StyleProp, TextInputProps, View, ViewStyle} from 'react-native';
 import StyledTextInput from './../Styled/StyledTextInput';
 // @ts-ignore
 import styled from 'styled-components/native';
@@ -19,6 +19,7 @@ export interface InputProps {
   onChange: (value: any) => void;
   value: any;
   messages?: Message[];
+  style?: StyleProp<ViewStyle>,
   variant?: Variant;
   disabled?: boolean;
   textInputOverride?: TextInputOverride;
@@ -49,6 +50,7 @@ export const Input = ({
   disabled,
   textInputOverride,
   variant = 'text',
+  style,
 }: Props) => {
   let extraProps: TextInputProps = {};
   switch (variant) {
@@ -82,7 +84,7 @@ export const Input = ({
   }
 
   return (
-    <View testID={`field/${name}`}>
+    <View testID={`field/${name}`} style={style}>
       <Title>{title}</Title>
       <StyledTextInput
         testID={name}

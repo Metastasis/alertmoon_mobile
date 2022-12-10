@@ -9,6 +9,8 @@ import {AuthContext} from './AuthProvider';
 import Settings from './Routes/Settings';
 import NotificationPattern from './Routes/NotificationPattern';
 import NotificationPatternList from './Routes/NotificationPatternList';
+import NotificationPatternView from './Routes/NotificationPatternView';
+import NotificationPatternEdit from './Routes/NotificationPatternEdit';
 import FlashMessage from 'react-native-flash-message';
 import {
   Keyboard,
@@ -37,6 +39,16 @@ export type RootStackParamList = {
         content?: string;
       }
     | undefined;
+  NotificationPatternEdit: {
+    id: string;
+    sender: string;
+    content?: string;
+  };
+  NotificationPatternView: {
+    id: string;
+    sender: string;
+    content?: string;
+  };
   NotificationPatternList: undefined;
 };
 
@@ -84,6 +96,14 @@ export default () => {
               name="NotificationPattern"
               component={NotificationPattern}
               initialParams={undefined}
+            />
+            <Stack.Screen
+              name="NotificationPatternView"
+              component={NotificationPatternView}
+            />
+            <Stack.Screen
+              name="NotificationPatternEdit"
+              component={NotificationPatternEdit}
             />
             <Stack.Screen
               name="NotificationPatternList"
