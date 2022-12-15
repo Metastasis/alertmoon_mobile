@@ -18,7 +18,7 @@ export type SearchResult =
 
 export function search({sessionToken}: {sessionToken?: string}) {
   return axios.post<SearchResult>(
-    `${Config.SMS_READER_BACKEND}/pattern/search`,
+    `${Config.ALERTMOON_API}/pattern/search`,
     {sessionToken},
   );
 }

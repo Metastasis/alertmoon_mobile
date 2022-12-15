@@ -10,7 +10,7 @@ const axios = axiosFactory.create();
 resilience(axios); // Adds retry mechanism to axios
 
 export const newKratosSdk = () => {
-  const basePath = canonicalize(Config.KRATOS_URL || '');
+  const basePath = canonicalize(Config.ORY_SDK_URL || '');
   const cfg = new Configuration({
     basePath,
     baseOptions: {
