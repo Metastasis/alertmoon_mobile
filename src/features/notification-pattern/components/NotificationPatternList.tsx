@@ -1,24 +1,21 @@
-import React, {useCallback, useContext, useEffect} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 // @ts-ignore
 import styled from 'styled-components/native';
-import StyledText from '../Styled/StyledText';
-import StyledButtonIcon from '../Styled/StyledButtonIcon';
-import StyledButton from '../Styled/StyledButton';
-import {AuthContext} from '../AuthProvider';
-import Layout from '../Layout/Layout';
-import StyledCard from '../Styled/StyledCard';
-
-interface NotificationPattern {
-  id: string;
-  sender: string;
-  content?: string;
-}
+import StyledText from '../../../components/Styled/StyledText';
+import StyledButtonIcon from '../../../components/Styled/StyledButtonIcon';
+import StyledButton from '../../../components/Styled/StyledButton';
+import {AuthContext} from '../../../components/AuthProvider';
+import Layout from '../../../components/Layout/Layout';
+import StyledCard from '../../../components/Styled/StyledCard';
+import {search, NotificationPattern} from '../api';
 
 const NotificationPatternList = () => {
   const navigation = useNavigation();
   const {isAuthenticated, session, sessionToken} = useContext(AuthContext);
+  const [status, setStatus] = useState<'' | 'loading' | 'error' | 'ready'>('');
+  const [items, setItems] = useState<NotificationPattern[]>([]);
 
   useEffect(() => {
     if (!isAuthenticated || !session) {
@@ -41,15 +38,46 @@ const NotificationPatternList = () => {
     navigation.navigate('NotificationPattern');
   }, [navigation]);
 
+  useEffect(() => {
+    async function callApi() {
+      setStatus('loading');
+      const result = await search({sessionToken}).catch(e => {
+        setStatus('error');
+        console.error(e);
+        return Promise.reject(e);
+      });
+      setStatus('ready');
+      if (result.data?.status === 'ok') {
+        setItems(result.data.payload);
+      }
+    }
+    callApi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   if (!isAuthenticated || !session) {
     return null;
   }
-
-  const items: NotificationPattern[] = [
-    {id: '1', sender: 'Райф', content: undefined},
-    {id: '2', sender: 'Сбербанк', content: undefined},
-    {id: '3', sender: 'Оранжевый', content: undefined},
-  ];
+  if (status !== 'ready') {
+    return (
+      <Layout>
+        <StyledCard>
+          <Title>
+            <StyledText variant="h1">Шаблоны уведомлений</StyledText>
+          </Title>
+          <StyledButton onPress={onCreate} title="Создать шаблон" />
+          {status === 'loading' && (
+            <StyledText variant="p">Загрузка списка...</StyledText>
+          )}
+          {status === 'error' && (
+            <StyledText variant="p">
+              Произошла ошибка, попробуйте позже
+            </StyledText>
+          )}
+        </StyledCard>
+      </Layout>
+    );
+  }
   return (
     <Layout>
       <StyledCard>
@@ -69,7 +97,7 @@ const NotificationPatternList = () => {
             <PatternAction>
               <StyledButtonIcon
                 onPress={() => console.log('pressed')}
-                icon={require('../../assets/icons8-delete-48.png')}
+                icon={require('../../../assets/icons8-delete-48.png')}
               />
             </PatternAction>
           </Pattern>
@@ -84,10 +112,6 @@ const Title = styled.View`
   flex-direction: row;
   align-items: flex-start;
   margin-bottom: 16px;
-`;
-const TitleEditButton = styled(StyledButtonIcon)`
-  margin-left: 12px;
-  margin-top: 10px;
 `;
 const Pattern = styled.View`
   margin-top: 16px;

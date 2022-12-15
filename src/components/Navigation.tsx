@@ -7,10 +7,12 @@ import Registration from './Routes/Registration';
 import Home from './Routes/Home';
 import {AuthContext} from './AuthProvider';
 import Settings from './Routes/Settings';
-import NotificationPattern from './Routes/NotificationPattern';
-import NotificationPatternList from './Routes/NotificationPatternList';
-import NotificationPatternView from './Routes/NotificationPatternView';
-import NotificationPatternEdit from './Routes/NotificationPatternEdit';
+import {
+  PageCreate as NotificationPattern,
+  PageList as NotificationPatternList,
+  PageView as NotificationPatternView,
+  PageEdit as NotificationPatternEdit,
+} from '../features/notification-pattern';
 import FlashMessage from 'react-native-flash-message';
 import {
   Keyboard,

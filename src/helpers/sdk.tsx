@@ -4,16 +4,13 @@ import axiosFactory from 'axios';
 import {resilience} from './axios';
 
 // canonicalize removes the trailing slash from URLs.
-const canonicalize = (url: string = '') => url.replace(/\/+$/, '');
+const canonicalize = (url: string) => url.replace(/\/+$/, '');
 
 const axios = axiosFactory.create();
 resilience(axios); // Adds retry mechanism to axios
 
 export const newKratosSdk = () => {
-  const basePath =
-    canonicalize(Config.KRATOS_URL) ||
-    // TODO: fix react-native-config
-    'https://peaceful-johnson-6ddzaeik3v.projects.oryapis.com';
+  const basePath = canonicalize(Config.KRATOS_URL || '');
   const cfg = new Configuration({
     basePath,
     baseOptions: {

@@ -1,15 +1,15 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import StyledText from '../Styled/StyledText';
-import {AuthContext} from '../AuthProvider';
-import Layout from '../Layout/Layout';
+import {ThemeProps} from '@ory/themes';
+import StyledText from '../../../components/Styled/StyledText';
+import {AuthContext} from '../../../components/AuthProvider';
+import Layout from '../../../components/Layout/Layout';
 // @ts-ignore
 import styled from 'styled-components/native';
-import StyledCard from '../Styled/StyledCard';
-import {Input} from '../UI';
-import {RootStackParamList} from '../Navigation';
+import StyledCard from '../../../components/Styled/StyledCard';
+import {Input} from '../../../components/UI';
+import {RootStackParamList} from '../../../components/Navigation';
 import {StackScreenProps} from '@react-navigation/stack';
-import {ThemeProps} from '@ory/themes';
-import StyledButtonIcon from '../Styled/StyledButtonIcon';
+import StyledButtonIcon from '../../../components/Styled/StyledButtonIcon';
 
 type Props = StackScreenProps<RootStackParamList, 'NotificationPatternView'>;
 type Message = {text: string; id: string; type: string};
@@ -71,12 +71,10 @@ const NotificationPatternView = ({navigation, route}: Props) => {
     <Layout>
       <StyledCard>
         <Title>
-          <StyledText variant="h1">
-            {sender}
-          </StyledText>
+          <StyledText variant="h1">{sender}</StyledText>
           <TitleEditButton
             onPress={onEdit}
-            icon={require('../../assets/icons8-pencil-48.png')}
+            icon={require('../../../assets/icons8-pencil-48.png')}
           />
         </Title>
         {content && (
@@ -99,7 +97,7 @@ const NotificationPatternView = ({navigation, route}: Props) => {
             testID="submit-form"
             disabled={inProgress}
             onPress={onGrantAccess}
-            icon={require('../../assets/icons8-add-new-48.png')}
+            icon={require('../../../assets/icons8-add-new-48.png')}
           />
         </InputWithButton>
         <StyledText variant="h2">Кому доступен шаблон</StyledText>
@@ -111,7 +109,7 @@ const NotificationPatternView = ({navigation, route}: Props) => {
             <PatternAction>
               <StyledButtonIcon
                 onPress={() => onDelete(access)}
-                icon={require('../../assets/icons8-delete-48.png')}
+                icon={require('../../../assets/icons8-delete-48.png')}
               />
             </PatternAction>
           </Pattern>

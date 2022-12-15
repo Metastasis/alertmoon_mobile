@@ -1,11 +1,11 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import StyledText from '../Styled/StyledText';
-import {AuthContext} from '../AuthProvider';
-import Layout from '../Layout/Layout';
-import StyledCard from '../Styled/StyledCard';
-import Button from '../Styled/StyledButton';
-import {Input} from '../UI';
-import {RootStackParamList} from '../Navigation';
+import StyledText from '../../../components/Styled/StyledText';
+import {AuthContext} from '../../../components/AuthProvider';
+import Layout from '../../../components/Layout/Layout';
+import StyledCard from '../../../components/Styled/StyledCard';
+import Button from '../../../components/Styled/StyledButton';
+import {Input} from '../../../components/UI';
+import {RootStackParamList} from '../../../components/Navigation';
 import {StackScreenProps} from '@react-navigation/stack';
 
 type Message = {text: string; id: string; type: string};
