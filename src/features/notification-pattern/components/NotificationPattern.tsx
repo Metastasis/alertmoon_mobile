@@ -7,6 +7,7 @@ import Button from '../../../components/Styled/StyledButton';
 import {Input} from '../../../components/UI';
 import {RootStackParamList} from '../../../components/Navigation';
 import {StackScreenProps} from '@react-navigation/stack';
+import {createPattern} from '../api';
 
 type Message = {text: string; id: string; type: string};
 type Validation = {sender?: Message[]; content?: Message[]};
@@ -30,9 +31,12 @@ const NotificationPattern = ({navigation, route}: Props) => {
     content: undefined,
   });
   const [inProgress, setInProgress] = useState(false);
-  const onSubmit = useCallback((data: any) => {
-    return Promise.resolve(data).then(console.log);
-  }, []);
+  const onSubmit = useCallback(
+    (data: any) => {
+      return createPattern({...data, sessionToken});
+    },
+    [sessionToken],
+  );
   const onPress = () => {
     const values = {sender, content};
     const msgSender = onValidateSender(sender);
@@ -53,6 +57,8 @@ const NotificationPattern = ({navigation, route}: Props) => {
     setInProgress(true);
     onSubmit({...values}).finally(() => {
       setInProgress(false);
+      // @ts-ignore
+      navigation.navigate('NotificationPatternList');
     });
   };
 

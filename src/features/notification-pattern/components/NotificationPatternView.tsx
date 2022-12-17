@@ -10,30 +10,35 @@ import {Input} from '../../../components/UI';
 import {RootStackParamList} from '../../../components/Navigation';
 import {StackScreenProps} from '@react-navigation/stack';
 import StyledButtonIcon from '../../../components/Styled/StyledButtonIcon';
+import {listConfidants, grantAccess, revokeAccess, Confidant} from '../api';
 
 type Props = StackScreenProps<RootStackParamList, 'NotificationPatternView'>;
 type Message = {text: string; id: string; type: string};
-type Validation = {email?: Message[]};
+type Validation = {confidantEmail?: Message[]};
 
 const NotificationPatternView = ({navigation, route}: Props) => {
   const {isAuthenticated, session, sessionToken} = useContext(AuthContext);
-  const [email, setEmail] = useState('');
+  const [confidantEmail, setEmail] = useState('');
+  const [accesses, setAccesses] = useState<Confidant[]>([]);
   const [messages, setMessages] = useState<Validation>({
-    email: undefined,
+    confidantEmail: undefined,
   });
   const [inProgress, setInProgress] = useState(false);
 
-  const onSubmit = useCallback((data: any) => {
-    return Promise.resolve(data).then(console.log);
-  }, []);
+  const onSubmit = useCallback(
+    (data: any) => {
+      return grantAccess({...data, patternId: route.params.id, sessionToken});
+    },
+    [sessionToken, route.params],
+  );
   const onGrantAccess = useCallback(() => {
-    const values = {email};
-    const msgEmail = onValidateEmail(email);
+    const values = {confidantEmail};
+    const msgEmail = onValidateEmail(confidantEmail);
     const emailError = msgEmail
       ? [{text: msgEmail, id: 'email-error', type: 'error'}]
       : undefined;
     setMessages({
-      email: emailError,
+      confidantEmail: emailError,
     });
     if (emailError) {
       return;
@@ -42,13 +47,23 @@ const NotificationPatternView = ({navigation, route}: Props) => {
     onSubmit({...values}).finally(() => {
       setInProgress(false);
     });
-  }, [onSubmit, setMessages, setInProgress, email]);
-  const onDelete = useCallback((access: {email: string}) => {
-    console.log(access);
-  }, []);
+  }, [onSubmit, setMessages, setInProgress, confidantEmail]);
+  const onDelete = useCallback(
+    (access: {patternId: string; confidantEmail: string}) => {
+      revokeAccess({...access, sessionToken});
+    },
+    [sessionToken],
+  );
   const onEdit = useCallback(() => {
     navigation.navigate('NotificationPatternEdit', route.params);
   }, [navigation, route.params]);
+  const onListConfidants = useCallback(() => {
+    return listConfidants({sessionToken, patternId: route.params.id}).then(
+      res => {
+        setAccesses(res.data?.payload || []);
+      },
+    );
+  }, [sessionToken, route.params]);
   useEffect(() => {
     if (!isAuthenticated || !session) {
       // @ts-ignore
@@ -56,17 +71,14 @@ const NotificationPatternView = ({navigation, route}: Props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, sessionToken]);
-
+  useEffect(() => {
+    onListConfidants();
+  }, [onListConfidants]);
   if (!isAuthenticated || !session) {
     return null;
   }
 
   const {sender, content} = route.params;
-  const accesses = [
-    {email: 'test@gmail.com'},
-    {email: 'detox@gmail.com'},
-    {email: 'warmup@gmail.com'},
-  ];
   return (
     <Layout>
       <StyledCard>
@@ -85,12 +97,12 @@ const NotificationPatternView = ({navigation, route}: Props) => {
         )}
         <InputWithButton>
           <Input
-            name="email"
+            name="confidantEmail"
             title="Добавить E-mail"
             onChange={setEmail}
-            value={email}
+            value={confidantEmail}
             disabled={inProgress}
-            messages={messages.email}
+            messages={messages.confidantEmail}
             style={{width: '80%'}}
           />
           <CustomButton
@@ -102,9 +114,9 @@ const NotificationPatternView = ({navigation, route}: Props) => {
         </InputWithButton>
         <StyledText variant="h2">Кому доступен шаблон</StyledText>
         {accesses.map(access => (
-          <Pattern key={access.email}>
+          <Pattern key={access.confidantEmail}>
             <PatternContent>
-              <PatternTitle>{access.email}</PatternTitle>
+              <PatternTitle>{access.confidantEmail}</PatternTitle>
             </PatternContent>
             <PatternAction>
               <StyledButtonIcon
