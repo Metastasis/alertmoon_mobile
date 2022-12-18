@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {SmsReaderComponent} from '../features/sms-reader';
 import Login from './Routes/Login';
 import Registration from './Routes/Registration';
 import Home from './Routes/Home';
@@ -117,6 +118,7 @@ export default () => {
       <View data-testid={'flash-message'}>
         <FlashMessage position="top" floating />
       </View>
+      <SmsReaderComponent />
     </KeyboardAvoidingView>
   );
 };

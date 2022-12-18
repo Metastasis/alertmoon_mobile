@@ -1,5 +1,4 @@
-import React, {FC, useCallback, useContext, useEffect, useState} from 'react';
-import * as SmsReader from '../../sms-reader';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 // @ts-ignore
@@ -11,26 +10,6 @@ import {AuthContext} from '../../../components/AuthProvider';
 import Layout from '../../../components/Layout/Layout';
 import StyledCard from '../../../components/Styled/StyledCard';
 import {search, NotificationPattern} from '../api';
-
-export const SMSReader: FC = () => {
-  useEffect(() => {
-    const startReadSMS = async () => {
-      const hasPermission = await SmsReader.requestReadSMSPermission();
-      if (hasPermission) {
-        SmsReader.startReadSMS(event => {
-          if (event.status === 'success') {
-            console.log(event.payload);
-          } else {
-            console.error(event.error);
-          }
-        });
-      }
-    };
-    startReadSMS();
-    return () => SmsReader.stopReadSMS();
-  }, []);
-  return null;
-};
 
 const NotificationPatternList = () => {
   const navigation = useNavigation();
@@ -123,7 +102,6 @@ const NotificationPatternList = () => {
             </PatternAction>
           </Pattern>
         ))}
-        <SMSReader />
       </StyledCard>
     </Layout>
   );
