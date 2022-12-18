@@ -10,13 +10,12 @@ import {AuthContext} from '../../../components/AuthProvider';
 import Layout from '../../../components/Layout/Layout';
 import StyledCard from '../../../components/Styled/StyledCard';
 import {search, NotificationPattern} from '../api';
+import {usePatternList} from '../state';
 
 const NotificationPatternList = () => {
   const navigation = useNavigation();
   const {isAuthenticated, session, sessionToken} = useContext(AuthContext);
-  const [status, setStatus] = useState<'' | 'loading' | 'error' | 'ready'>('');
-  const [items, setItems] = useState<NotificationPattern[]>([]);
-
+  const list = usePatternList({sessionToken});
   useEffect(() => {
     if (!isAuthenticated || !session) {
       // @ts-ignore
@@ -38,27 +37,10 @@ const NotificationPatternList = () => {
     navigation.navigate('NotificationPattern');
   }, [navigation]);
 
-  useEffect(() => {
-    async function callApi() {
-      setStatus('loading');
-      const result = await search({sessionToken}).catch(e => {
-        setStatus('error');
-        console.error(e);
-        return Promise.reject(e);
-      });
-      setStatus('ready');
-      if (result.data?.status === 'ok') {
-        setItems(result.data.payload);
-      }
-    }
-    callApi();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   if (!isAuthenticated || !session) {
     return null;
   }
-  if (status !== 'ready') {
+  if (list.isLoading) {
     return (
       <Layout>
         <StyledCard>
@@ -66,14 +48,20 @@ const NotificationPatternList = () => {
             <StyledText variant="h1">Шаблоны уведомлений</StyledText>
           </Title>
           <StyledButton onPress={onCreate} title="Создать шаблон" />
-          {status === 'loading' && (
-            <StyledText variant="p">Загрузка списка...</StyledText>
-          )}
-          {status === 'error' && (
-            <StyledText variant="p">
-              Произошла ошибка, попробуйте позже
-            </StyledText>
-          )}
+          <StyledText variant="p">Загрузка списка...</StyledText>
+        </StyledCard>
+      </Layout>
+    );
+  }
+  if (list.isLoading || !list.data) {
+    return (
+      <Layout>
+        <StyledCard>
+          <Title>
+            <StyledText variant="h1">Шаблоны уведомлений</StyledText>
+          </Title>
+          <StyledButton onPress={onCreate} title="Создать шаблон" />
+          <StyledText variant="p">Произошла ошибка</StyledText>
         </StyledCard>
       </Layout>
     );
@@ -85,7 +73,7 @@ const NotificationPatternList = () => {
           <StyledText variant="h1">Шаблоны уведомлений</StyledText>
         </Title>
         <StyledButton onPress={onCreate} title="Создать шаблон" />
-        {items.map(item => (
+        {list.data.payload.map(item => (
           <Pattern key={item.id}>
             <PatternContent>
               <StyledItemButton onPress={() => onNotificationPage(item)}>

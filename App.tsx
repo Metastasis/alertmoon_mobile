@@ -2,6 +2,8 @@ import 'react-native-gesture-handler';
 // https://github.com/facebook/react-native/issues/23922
 import 'react-native-url-polyfill/auto';
 import React from 'react';
+import {AppState} from 'react-native';
+import {SWRConfig} from 'swr';
 import {ThemeProvider} from 'styled-components';
 // @ts-ignore
 import {ThemeProvider as NativeThemeProvider} from 'styled-components/native';
@@ -44,17 +46,45 @@ export default function App() {
     flex: 1,
     backgroundColor: theme.grey5,
   };
-
+  const test = {
+    provider: () => new Map(),
+    isVisible: () => {
+      return true;
+    },
+    initFocus(callback: any) {
+      let appState = AppState.currentState;
+      const onAppStateChange = (nextAppState: any) => {
+        /* If it's resuming from background or inactive mode to active one */
+        if (
+          appState.match(/inactive|background/) &&
+          nextAppState === 'active'
+        ) {
+          callback();
+        }
+        appState = nextAppState;
+      };
+      // Subscribe to the app state change events
+      const subscription = AppState.addEventListener(
+        'change',
+        onAppStateChange,
+      );
+      return () => {
+        subscription.remove();
+      };
+    },
+  };
   return (
     <ThemeProvider theme={hydratedTheme}>
       <NativeThemeProvider theme={hydratedTheme}>
         <SafeAreaProvider>
           <SafeAreaView edges={['top', 'left', 'right']} style={stl}>
-            <AuthProvider>
-              <ErrorBoundary>
-                <Navigation />
-              </ErrorBoundary>
-            </AuthProvider>
+            <SWRConfig value={test}>
+              <AuthProvider>
+                <ErrorBoundary>
+                  <Navigation />
+                </ErrorBoundary>
+              </AuthProvider>
+            </SWRConfig>
           </SafeAreaView>
         </SafeAreaProvider>
       </NativeThemeProvider>

@@ -19,10 +19,14 @@ export type SearchResult =
   | {status: 'error'; payload: void};
 
 export function search(params: Session) {
-  return axios.post<SearchResult>(
-    `${Config.ALERTMOON_API}/pattern/search`,
-    params,
-  );
+  return axios
+    .post<SearchResult>(`${Config.ALERTMOON_API}/pattern/search`, params)
+    .then(d => {
+      if (d.data.status === 'ok') {
+        return d.data;
+      }
+      return Promise.reject(d.data);
+    });
 }
 
 type CreateParams = Session & Pick<NotificationPattern, 'sender' | 'content'>;
