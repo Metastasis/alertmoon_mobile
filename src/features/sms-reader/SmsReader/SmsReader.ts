@@ -13,7 +13,9 @@ import {
 import type {StartReadSMS} from './types';
 
 const hasSmsPermissions = async () => {
-  if (IS_ANDROID && PLATFORM_VERSION < 23) return true;
+  if (IS_ANDROID && PLATFORM_VERSION < 23) {
+    return true;
+  }
 
   const currentPermissions = await Promise.all([
     PermissionsAndroid.check(RECEIVE_SMS_PERMISSION),
@@ -23,38 +25,39 @@ const hasSmsPermissions = async () => {
   return currentPermissions.every(permission => permission === true);
 };
 
-export const startReadSMS: StartReadSMS = async callback => {
-  if (!callback) return;
+export const startReadSMS: StartReadSMS = async (callback: any) => {
+  if (!callback) {
+    return;
+  }
 
-  if (!IS_ANDROID)
+  if (!IS_ANDROID) {
     return callback({
       status: 'error',
       error: 'ReadSms Plugin is only for android platform',
     });
+  }
 
   const hasPermission = await hasSmsPermissions();
 
-  if (!hasPermission)
+  if (!hasPermission) {
     return callback({
       status: 'error',
       error: 'Required RECEIVE_SMS and READ_SMS permission',
     });
+  }
 
-  NativeModules.ReadSms.startReadSMS(
-    () => {
-      new NativeEventEmitter(NativeModules.ReadSms).addListener(
-        'received_sms',
-        (...payload) => callback({status: 'success', payload}),
-      );
-    },
-    (error: string) => callback({status: 'error', error}),
+  const emitter = new NativeEventEmitter(NativeModules.ReadSms);
+  emitter.addListener('received_sms', (...payload) =>
+    callback({status: 'success', payload}),
   );
 };
 
 export const requestReadSMSPermission = async () => {
   const hasPermission = await hasSmsPermissions();
 
-  if (!IS_ANDROID || hasPermission) return true;
+  if (!IS_ANDROID || hasPermission) {
+    return true;
+  }
 
   const status = Object.values(
     await PermissionsAndroid.requestMultiple([
@@ -67,7 +70,9 @@ export const requestReadSMSPermission = async () => {
 };
 
 export const stopReadSMS = () => {
-  if (!IS_ANDROID) return;
+  if (!IS_ANDROID) {
+    return;
+  }
 
-  NativeModules.ReadSms.stopReadSMS();
+  NativeModules.ReadSms.removeListeners(1);
 };

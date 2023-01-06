@@ -54,9 +54,6 @@ const NotificationPatternView = ({navigation, route}: Props) => {
     },
     [sessionToken],
   );
-  const onEdit = useCallback(() => {
-    navigation.navigate('NotificationPatternEdit', route.params);
-  }, [navigation, route.params]);
   const onListConfidants = useCallback(() => {
     return listConfidants({sessionToken, patternId: route.params.id}).then(
       res => {
@@ -84,10 +81,6 @@ const NotificationPatternView = ({navigation, route}: Props) => {
       <StyledCard>
         <Title>
           <StyledText variant="h1">{sender}</StyledText>
-          <TitleEditButton
-            onPress={onEdit}
-            icon={require('../../../assets/icons8-pencil-48.png')}
-          />
         </Title>
         {content && (
           <>
@@ -138,10 +131,6 @@ const Title = styled.View`
   flex-direction: row;
   align-items: flex-start;
   margin-bottom: 16px;
-`;
-const TitleEditButton = styled(StyledButtonIcon)`
-  margin-left: 12px;
-  margin-top: 10px;
 `;
 const Pattern = styled.View`
   margin-top: 16px;

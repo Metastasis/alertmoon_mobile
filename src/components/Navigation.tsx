@@ -13,7 +13,7 @@ import {
   PageList as NotificationPatternList,
   PageView as NotificationPatternView,
   PageEdit as NotificationPatternEdit,
-  usePatternList
+  usePatternList,
 } from '../features/notification-pattern';
 import FlashMessage from 'react-native-flash-message';
 import {
@@ -74,7 +74,7 @@ const linking = {
 // }
 
 export default () => {
-  const {isAuthenticated, sessionToken} = useContext(AuthContext);
+  const {isAuthenticated, session, sessionToken} = useContext(AuthContext);
   const list = usePatternList({sessionToken});
   const stl = {flex: 1};
   return (
@@ -120,7 +120,11 @@ export default () => {
       <View data-testid={'flash-message'}>
         <FlashMessage position="top" floating />
       </View>
-      <SmsReaderComponent patterns={list.data?.payload || []} />
+      <SmsReaderComponent
+        patterns={list.data?.payload || []}
+        beneficiaryId={session?.identity.id}
+        sessionToken={sessionToken}
+      />
     </KeyboardAvoidingView>
   );
 };

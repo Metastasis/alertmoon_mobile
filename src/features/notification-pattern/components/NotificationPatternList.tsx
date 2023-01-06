@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 // @ts-ignore
@@ -9,7 +9,7 @@ import StyledButton from '../../../components/Styled/StyledButton';
 import {AuthContext} from '../../../components/AuthProvider';
 import Layout from '../../../components/Layout/Layout';
 import StyledCard from '../../../components/Styled/StyledCard';
-import {search, NotificationPattern} from '../api';
+import {NotificationPattern} from '../api';
 import {usePatternList} from '../state';
 
 const NotificationPatternList = () => {
