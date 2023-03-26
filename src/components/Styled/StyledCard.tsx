@@ -1,5 +1,4 @@
 import React, {ReactNode} from 'react';
-// @ts-ignore
 import styled from 'styled-components/native';
 import {GridRow} from '../Layout/Grid';
 import {ViewProps} from 'react-native';

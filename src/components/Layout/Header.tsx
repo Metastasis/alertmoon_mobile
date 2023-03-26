@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
-// @ts-ignore
 import styled from 'styled-components/native';
 import {ThemeProps} from '@ory/themes';
 import {useNavigation} from '@react-navigation/native';
@@ -13,8 +12,8 @@ const Buttons = styled.View`
 `;
 
 const StyledImage = styled.Image`
-  width: 110px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
 `;
 
 const HeaderButton = styled.Image`
@@ -48,7 +47,6 @@ const Header = () => {
     // @ts-ignore
     navigation.navigate(to);
   };
-
   return (
     <Container>
       <TouchableOpacity onPress={navigate('Home')}>

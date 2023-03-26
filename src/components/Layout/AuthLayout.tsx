@@ -1,8 +1,7 @@
 import React, {ReactNode} from 'react';
-// @ts-ignore
 import styled from 'styled-components/native';
-import {GridContainer, GridRow} from './Grid';
 import {ScrollView} from 'react-native';
+import {GridContainer, GridRow} from './Grid';
 
 const StyledImage = styled.Image`
   margin-top: 55px;

@@ -5,17 +5,16 @@ import {ThemeContext} from 'styled-components';
 import StyledCard from './StyledCard';
 import StyledText from './StyledText';
 
-interface Props {
+type Props = {
   onPress(): void;
-
   cta: string;
   description: string;
   testID?: string;
-}
+};
 
 export default ({onPress, cta, description, testID}: Props) => {
   const theme = useContext(ThemeContext);
-  const stl = {textAlign: 'center'};
+  const stl = {textAlign: 'center' as const};
   return (
     <StyledCard>
       <TouchableHighlight testID={testID} onPress={onPress}>

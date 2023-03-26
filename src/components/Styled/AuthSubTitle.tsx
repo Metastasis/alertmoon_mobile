@@ -1,13 +1,11 @@
 import React, {ReactNode} from 'react';
-// @ts-ignore
 import styled from 'styled-components/native';
 import {ThemeProps} from '@ory/themes';
-
 import StyledText from './StyledText';
 
-interface Props {
+type Props = {
   children?: ReactNode;
-}
+};
 
 const StyledInnerText = styled(StyledText)`
   color: ${({theme}: ThemeProps) => theme.primary60};

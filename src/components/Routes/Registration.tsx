@@ -93,7 +93,7 @@ const Registration = ({navigation}: Props) => {
   return (
     <AuthLayout>
       <StyledCard>
-        <AuthSubTitle>Create an account</AuthSubTitle>
+        <AuthSubTitle>Регистрация</AuthSubTitle>
         <SelfServiceFlow
           textInputOverride={(field, props) => {
             switch (getNodeId(field)) {
@@ -121,9 +121,12 @@ const Registration = ({navigation}: Props) => {
       </StyledCard>
 
       <NavigationCard
-        description="Already have an account?"
-        cta="Sign in!"
-        onPress={() => navigation.navigate({key: 'Login'})}
+        description="Уже есть аккаунт?"
+        cta="Войдите!"
+        onPress={
+          // @ts-ignore
+          () => navigation.navigate('Login')
+        }
       />
     </AuthLayout>
   );

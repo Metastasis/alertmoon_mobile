@@ -4,7 +4,6 @@ import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 import styled from 'styled-components/native';
 import StyledText from '../../../components/Styled/StyledText';
 import StyledButtonIcon from '../../../components/Styled/StyledButtonIcon';
-import StyledButton from '../../../components/Styled/StyledButton';
 import {AuthContext} from '../../../components/AuthProvider';
 import Layout from '../../../components/Layout/Layout';
 import StyledCard from '../../../components/Styled/StyledCard';
@@ -31,11 +30,6 @@ const NotificationPatternList = () => {
     [navigation],
   );
 
-  const onCreate = useCallback(() => {
-    // @ts-ignore
-    navigation.navigate('NotificationPattern');
-  }, [navigation]);
-
   if (!isAuthenticated || !session) {
     return null;
   }
@@ -44,9 +38,8 @@ const NotificationPatternList = () => {
       <Layout>
         <StyledCard>
           <Title>
-            <StyledText variant="h1">Шаблоны уведомлений</StyledText>
+            <StyledText variant="h1">Список шаблонов</StyledText>
           </Title>
-          <StyledButton onPress={onCreate} title="Создать шаблон" />
           <StyledText variant="p">Загрузка списка...</StyledText>
         </StyledCard>
       </Layout>
@@ -57,40 +50,38 @@ const NotificationPatternList = () => {
       <Layout>
         <StyledCard>
           <Title>
-            <StyledText variant="h1">Шаблоны уведомлений</StyledText>
+            <StyledText variant="h1">Список шаблонов</StyledText>
           </Title>
-          <StyledButton onPress={onCreate} title="Создать шаблон" />
-          <StyledText variant="p">Произошла ошибка</StyledText>
+          <StyledText variant="p">
+            Список пуст, попробуйте создать шаблон
+          </StyledText>
         </StyledCard>
       </Layout>
     );
   }
   return (
-    <Layout>
-      <StyledCard>
-        <Title>
-          <StyledText variant="h1">Шаблоны уведомлений</StyledText>
-        </Title>
-        <StyledButton onPress={onCreate} title="Создать шаблон" />
-        {list.data.payload.map(item => (
-          <Pattern key={item.id}>
-            <PatternContent>
-              <StyledItemButton onPress={() => onNotificationPage(item)}>
-                <StyledText style={{color: themeGlobal.grey100}}>
-                  {item.sender}
-                </StyledText>
-              </StyledItemButton>
-            </PatternContent>
-            <PatternAction>
-              <StyledButtonIcon
-                onPress={() => console.log('pressed')}
-                icon={require('../../../assets/icons8-delete-48.png')}
-              />
-            </PatternAction>
-          </Pattern>
-        ))}
-      </StyledCard>
-    </Layout>
+    <StyledCard>
+      <Title>
+        <StyledText variant="h1">Список шаблонов</StyledText>
+      </Title>
+      {list.data.payload.map(item => (
+        <Pattern key={item.id}>
+          <PatternContent>
+            <StyledItemButton onPress={() => onNotificationPage(item)}>
+              <StyledText style={{color: themeGlobal.grey100}}>
+                {item.sender}
+              </StyledText>
+            </StyledItemButton>
+          </PatternContent>
+          <PatternAction>
+            <StyledButtonIcon
+              onPress={() => console.log('pressed')}
+              icon={require('../../../assets/icons8-delete-48.png')}
+            />
+          </PatternAction>
+        </Pattern>
+      ))}
+    </StyledCard>
   );
 };
 

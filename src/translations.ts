@@ -3,7 +3,11 @@ import {FormField} from '@ory/kratos-client';
 
 const translations = {
   password: {
-    title: 'Password',
+    title: 'Пароль',
+    position: 2,
+  },
+  method: {
+    title: 'Отправить',
     position: 2,
   },
   'traits.email': {
@@ -11,19 +15,19 @@ const translations = {
     position: 1,
   },
   'traits.name.first': {
-    title: 'First Name',
+    title: 'Имя',
     position: 2,
   },
   'traits.name.last': {
-    title: 'Last Name',
+    title: 'Фамилия',
     position: 3,
   },
   'traits.name.birthday': {
-    title: 'My Birthday',
+    title: 'День рождения',
     position: 4,
   },
   'traits.website': {
-    title: 'Website',
+    title: 'Сайт',
     position: 4,
   },
   identifier: {
@@ -31,15 +35,15 @@ const translations = {
     position: 0,
   },
   to_verify: {
-    title: 'Your email address',
+    title: 'E-mail',
     position: 0,
   },
 };
 
 type Translations = typeof translations;
 
-export const getTitle = (key: string): string =>
-  key in translations ? translations[key as keyof Translations].title : key;
+export const getTitle = (key: string): string | null =>
+  key in translations ? translations[key as keyof Translations].title : null;
 
 export const getPosition = (field: FormField) =>
   field.name && field.name in translations

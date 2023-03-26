@@ -2,9 +2,11 @@ import {UiNode, UiNodeInputAttributes} from '@ory/kratos-client';
 import React from 'react';
 import {TextInputProps, View} from 'react-native';
 import StyledTextInput from '../../../Styled/StyledTextInput';
-// @ts-ignore
 import styled from 'styled-components/native';
-import {textInputSubtitleStyles, textInputTitleStyles} from '@ory/themes';
+import {
+  textInputSubtitleStyles,
+  textInputTitleStyles,
+} from '../../theme/textInputStyles';
 import {
   getNodeId,
   getNodeTitle,

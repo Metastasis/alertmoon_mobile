@@ -69,14 +69,14 @@ const Login = ({navigation, route}: Props) => {
   return (
     <AuthLayout>
       <StyledCard>
-        <AuthSubTitle>Sign in to your account</AuthSubTitle>
+        <AuthSubTitle>Вход в аккаунт</AuthSubTitle>
         <SelfServiceFlow flow={flow} onSubmit={onSubmit} />
       </StyledCard>
 
       <NavigationCard
         testID="nav-signup"
-        description="Need an account?"
-        cta="Sign up!"
+        description="Нет аккаунта?"
+        cta="Зарегистрируйся!"
         onPress={() => navigation.navigate('Registration')}
       />
     </AuthLayout>

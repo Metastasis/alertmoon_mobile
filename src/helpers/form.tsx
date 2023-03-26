@@ -11,6 +11,7 @@ import {
 import {AxiosError} from 'axios';
 import {showMessage} from 'react-native-flash-message';
 import {UiNodeAttributes} from '@ory/kratos-client';
+import {getTitle} from '../translations';
 
 export function camelize<T>(str: string) {
   return str.replace(/_([a-z])/g, g => g[1].toUpperCase()) as keyof T;
@@ -58,6 +59,8 @@ export function getNodeValue({attributes}: UiNode) {
 
 export const getNodeTitle = ({attributes, meta}: UiNode): string => {
   if (isUiNodeInputAttributes(attributes)) {
+    const title = getTitle(attributes.name);
+    if (title) return title;
     if (meta?.label?.text) {
       return meta.label.text;
     }

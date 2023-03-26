@@ -5,12 +5,9 @@ import React from 'react';
 import {AppState} from 'react-native';
 import {SWRConfig} from 'swr';
 import {ThemeProvider} from 'styled-components';
-// @ts-ignore
 import {ThemeProvider as NativeThemeProvider} from 'styled-components/native';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-
-import {theme} from '@ory/themes';
-
+import {theme} from './src/components/Ory/theme/helpers';
 import Navigation from './src/components/Navigation';
 import ErrorBoundary from './src/components/ErrorBoundary';
 import AuthProvider from './src/components/AuthProvider';
@@ -46,7 +43,7 @@ export default function App() {
     flex: 1,
     backgroundColor: theme.grey5,
   };
-  const test = {
+  const swrCfg = {
     provider: () => new Map(),
     isVisible: () => {
       return true;
@@ -78,7 +75,7 @@ export default function App() {
       <NativeThemeProvider theme={hydratedTheme}>
         <SafeAreaProvider>
           <SafeAreaView edges={['top', 'left', 'right']} style={stl}>
-            <SWRConfig value={test}>
+            <SWRConfig value={swrCfg}>
               <AuthProvider>
                 <ErrorBoundary>
                   <Navigation />

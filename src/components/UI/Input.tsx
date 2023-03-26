@@ -1,9 +1,8 @@
 import React from 'react';
 import {StyleProp, TextInputProps, View, ViewStyle} from 'react-native';
 import StyledTextInput from './../Styled/StyledTextInput';
-// @ts-ignore
 import styled from 'styled-components/native';
-import {textInputSubtitleStyles, textInputTitleStyles} from '@ory/themes';
+import {textInputSubtitleStyles, textInputTitleStyles} from '../Ory/theme/textInputStyles';
 
 type Props = InputProps;
 

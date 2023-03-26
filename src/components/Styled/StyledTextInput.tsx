@@ -1,5 +1,4 @@
-// @ts-ignore
 import styled from 'styled-components/native';
-import {textInputStyles} from '@ory/themes';
+import {textInputStyles} from '../Ory/theme/textInputStyles';
 
 export default styled.TextInput(textInputStyles);

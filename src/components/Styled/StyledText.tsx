@@ -1,15 +1,14 @@
 import React, {ReactNode} from 'react';
-// @ts-ignore
 import styled from 'styled-components/native';
 import {
   typographyCaptionStyles,
   typographyCodeStyles,
-  typographyH1Styles,
   typographyH2Styles,
   typographyH3Styles,
   typographyLeadStyles,
   typographyParagraphStyles,
-} from '@ory/themes';
+  typographyH1Styles,
+} from '../Ory/theme/typographyStyles';
 import {StyleProp, TextProps, TextStyle} from 'react-native';
 
 interface StyledTextProps extends TextProps {
@@ -40,7 +39,7 @@ const Lead = styled.Text(typographyLeadStyles);
 
 const Code = styled.Text(typographyCodeStyles);
 
-export default ({variant, ...props}: StyledTextProps) => {
+export default function StyledText({variant, ...props}: StyledTextProps) {
   switch (variant) {
     case 'h1':
       return <H1 {...props} />;
@@ -58,4 +57,4 @@ export default ({variant, ...props}: StyledTextProps) => {
     default:
       return <Paragraph {...props} />;
   }
-};
+}
