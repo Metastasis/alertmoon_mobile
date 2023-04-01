@@ -21,13 +21,13 @@ export default class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.error(11111, error, errorInfo);
+    console.error(error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <StyledText variant="h1">Something went wrong.</StyledText>;
+      return <StyledText variant="h1">Что-то пошло не так.</StyledText>;
     }
 
     return this.props.children;

@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import {TouchableOpacity} from 'react-native';
 import styled from 'styled-components/native';
-import {ThemeProps} from '@ory/themes';
 import {useNavigation} from '@react-navigation/native';
+import {ThemeProps} from '../Ory/theme/helpers';
 import {AuthContext} from '../AuthProvider';
 
 const Buttons = styled.View`

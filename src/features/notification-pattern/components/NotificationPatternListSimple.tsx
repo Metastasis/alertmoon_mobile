@@ -1,7 +1,10 @@
 import React, {useCallback, useContext, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {ThemeProps, theme as themeGlobal} from '@ory/themes';
 import styled from 'styled-components/native';
+import {
+  ThemeProps,
+  theme as themeGlobal,
+} from '../../../components/Ory/theme/helpers';
 import StyledText from '../../../components/Styled/StyledText';
 import StyledButtonIcon from '../../../components/Styled/StyledButtonIcon';
 import {AuthContext} from '../../../components/AuthProvider';

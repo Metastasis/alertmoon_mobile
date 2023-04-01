@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import styled from 'styled-components/native';
 import {
   forkMeStyles,
@@ -7,7 +6,7 @@ import {
   forkMeStylesImages,
   forkMeStylesLink,
   forkMeStylesText,
-} from '@ory/themes';
+} from '../Ory/theme/forkMeStyles';
 
 const Container = styled.View(forkMeStyles);
 const StyledImage = styled.Image(forkMeStylesImages);

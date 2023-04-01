@@ -1,10 +1,9 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {ThemeProps} from '@ory/themes';
+import styled from 'styled-components/native';
+import {ThemeProps} from '../../../components/Ory/theme/helpers';
 import StyledText from '../../../components/Styled/StyledText';
 import {AuthContext} from '../../../components/AuthProvider';
 import Layout from '../../../components/Layout/Layout';
-// @ts-ignore
-import styled from 'styled-components/native';
 import StyledCard from '../../../components/Styled/StyledCard';
 import {Input} from '../../../components/UI';
 import {RootStackParamList} from '../../../components/Navigation';
@@ -37,10 +36,10 @@ const NotificationPatternView = ({navigation, route}: Props) => {
     const emailError = msgEmail
       ? [{text: msgEmail, id: 'email-error', type: 'error'}]
       : undefined;
-    setMessages({
-      confidantEmail: emailError,
-    });
     if (emailError) {
+      setMessages({
+        confidantEmail: emailError,
+      });
       return;
     }
     setInProgress(true);

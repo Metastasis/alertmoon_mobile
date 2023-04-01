@@ -1,8 +1,8 @@
 import React, {ReactNode} from 'react';
+import {ViewProps} from 'react-native';
 import styled from 'styled-components/native';
 import {GridRow} from '../Layout/Grid';
-import {ViewProps} from 'react-native';
-import {ThemeProps} from '@ory/themes';
+import {ThemeProps} from '../Ory/theme/helpers';
 
 const StyledCard = styled.View`
   padding: 12px;
